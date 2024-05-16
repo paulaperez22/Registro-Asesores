@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <style>
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        input[type="time"] {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            text-transform: uppercase;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registro de Usuario</h1>
+    
+    <form id="registroForm" method="post">
+        <label for="apellidos"><b>Apellidos:</b></label>
+        <input type="text" id="apellidos" name="apellidos" required><br>
+
+        <label for="nombre"><b>Nombre:</b></label>
+        <input type="text" id="nombre" name="nombre" required><br>
+
+        <label for="fecha"><b>Fecha:</b></label>
+        <input type="date" id="fecha" name="fecha" required><br>
+
+        <label for="hora"><b>Hora:</b></label>
+        <input type="time" id="hora" name="hora" required><br>
+
+        <label for="centro"><b>Centro de Servicio (Nombre completo sin abreviaturas):</b></label>
+        <input type="text" id="centro" name="centro" required><br>
+
+        <label for="email"><b>Email:</b></label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="userAgent"><b>User-Agent:</b></label>
+        <input type="text" id="userAgent" name="userAgent" readonly><br>
+
+        <label for="ipAddress"><b>Dirección IP:</b></label>
+        <input type="text" id="ipAddress" name="ipAddress" readonly><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        // Obtener el User-Agent del navegador
+        document.getElementById("userAgent").value = navigator.userAgent;
+        
+        // Obtener la dirección IP del dispositivo utilizando una petición a una API externa
+        fetch("https://api.ipify.org?format=json")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("ipAddress").value = data.ip;
+            })
+            .catch(error => {
+                console.error("Error al obtener la dirección IP:", error);
+                document.getElementById("ipAddress").value = "No se pudo obtener la dirección IP";
+            });
+    </script>
+</body>
+</html>
